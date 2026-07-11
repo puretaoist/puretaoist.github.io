@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="1. 实验目的本次实验旨在安装并运行 Cisco Packet Tracer 桌面网络模拟软件，通过搭建一个包含交换机与两台 PC 的简单局域网，直观理解网络软件通信的基本原理。同时，结合软件架构理论知识，对比 C&#x2F;S、B&#x2F;S、P2P 三种主流网络架构的特点，深化对网络通信分层模型（应用层、网络层、数据链路层）的感性认识。 2. 实验环境 操作系统：Windows 11 专业工">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实验一报告：Cisco Packet Tracer 网络模拟与局域网搭建">
+<meta property="og:url" content="http://example.com/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%80/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1. 实验目的本次实验旨在安装并运行 Cisco Packet Tracer 桌面网络模拟软件，通过搭建一个包含交换机与两台 PC 的简单局域网，直观理解网络软件通信的基本原理。同时，结合软件架构理论知识，对比 C&#x2F;S、B&#x2F;S、P2P 三种主流网络架构的特点，深化对网络通信分层模型（应用层、网络层、数据链路层）的感性认识。 2. 实验环境 操作系统：Windows 11 专业工">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%80/2026-07-11-06-45-01.png">
+<meta property="og:image" content="http://example.com/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%80/%E5%9B%BE4%EF%BC%9A%E4%B8%BB%E7%95%8C%E9%9D%A2%E5%8C%BA%E5%9F%9F%E5%88%92%E5%88%86.png">
+<meta property="og:image" content="http://example.com/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%80/%E5%9B%BE5%EF%BC%9A%E6%B7%BB%E5%8A%A0%E4%BA%A4%E6%8D%A2%E6%9C%BA%E4%B8%8E%E4%B8%A4%E5%8F%B0PC.png">
+<meta property="og:image" content="http://example.com/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%80/%E5%9B%BE6%EF%BC%9A%E4%BD%BF%E7%94%A8%E7%9B%B4%E9%80%9A%E7%BA%BF%E8%BF%9E%E6%8E%A5PC%E4%B8%8E%E4%BA%A4%E6%8D%A2%E6%9C%BA.png">
+<meta property="og:image" content="http://example.com/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%80/%E5%9B%BE7%EF%BC%9APC1%E9%85%8D%E7%BD%AE%E9%9D%99%E6%80%81IP.png">
+<meta property="og:image" content="http://example.com/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%80/%E5%9B%BE8%EF%BC%9APC2%E9%85%8D%E7%BD%AE%E9%9D%99%E6%80%81IP.png">
+<meta property="og:image" content="http://example.com/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%80/%E5%9B%BE9%EF%BC%9APC0pingPC1%E6%88%90%E5%8A%9F%E8%BF%94%E5%9B%9E.png">
+<meta property="og:image" content="http://example.com/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%80/%E5%9B%BE10%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%8C%85%E4%BC%A0%E8%BE%93%E8%BF%87%E7%A8%8B%E7%A4%BA%E6%84%8F.png">
+<meta property="og:image" content="http://example.com/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%80/%E5%9B%BE11%EF%BC%9A%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE%E5%8C%85%E5%9C%A8%E4%BA%A4%E6%8D%A2%E6%9C%BA%E5%A4%84%E7%9A%84%E5%A4%84%E7%90%86%E7%BB%86%E8%8A%82.png">
+<meta property="article:published_time" content="2026-07-09T09:00:00.000Z">
+<meta property="article:modified_time" content="2026-07-11T11:57:01.494Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="实验报告">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%80/2026-07-11-06-45-01.png">
+
+<link rel="canonical" href="http://example.com/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%80/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>实验一报告：Cisco Packet Tracer 网络模拟与局域网搭建 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          实验一报告：Cisco Packet Tracer 网络模拟与局域网搭建
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-07-09 09:00:00" itemprop="dateCreated datePublished" datetime="2026-07-09T09:00:00+00:00">2026-07-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-07-11 11:57:01" itemprop="dateModified" datetime="2026-07-11T11:57:01+00:00">2026-07-11</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="1-实验目的"><a href="#1-实验目的" class="headerlink" title="1. 实验目的"></a>1. 实验目的</h2><p>本次实验旨在安装并运行 Cisco Packet Tracer 桌面网络模拟软件，通过搭建一个包含交换机与两台 PC 的简单局域网，直观理解网络软件通信的基本原理。同时，结合软件架构理论知识，对比 C&#x2F;S、B&#x2F;S、P2P 三种主流网络架构的特点，深化对网络通信分层模型（应用层、网络层、数据链路层）的感性认识。</p>
+<h2 id="2-实验环境"><a href="#2-实验环境" class="headerlink" title="2. 实验环境"></a>2. 实验环境</h2><ul>
+<li><strong>操作系统</strong>：Windows 11 专业工作站版 23H2  </li>
+<li><strong>软件版本</strong>：Cisco Packet Tracer 9.0.0 </li>
+<li><strong>网络要求</strong>：安装时需互联网连接以下载软件，后续模拟运行无需外网  </li>
+<li><strong>硬件配置</strong>：Intel u7 255hx &#x2F; 16GB RAM  </li>
+<li><strong>模拟拓扑</strong>：单交换机（2960） + 两台 PC，IP 段 192.168.1.0&#x2F;24，直通线连接</li>
+</ul>
+<h2 id="3-实验过程"><a href="#3-实验过程" class="headerlink" title="3. 实验过程"></a>3. 实验过程</h2><h3 id="步骤1：注册-Cisco-NetAcad-账号并下载-Packet-Tracer"><a href="#步骤1：注册-Cisco-NetAcad-账号并下载-Packet-Tracer" class="headerlink" title="步骤1：注册 Cisco NetAcad 账号并下载 Packet Tracer"></a>步骤1：注册 Cisco NetAcad 账号并下载 Packet Tracer</h3><p>打开浏览器访问 <a target="_blank" rel="noopener" href="https://www.netacad.com/">Cisco Networking Academy</a>，点击页面右上角“Login”进入注册页面。使用个人邮箱完成注册并验证。登录后，在课程资源或下载中心找到 “Packet Tracer” 下载入口，选择适合 Windows 的版本进行下载。</p>
+<blockquote>
+<p><em>（截图1：NetAcad官网下载页面，标注下载按钮位置）</em><br><strong><img src="/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%80/2026-07-11-06-45-01.png" alt="图一"></strong></p>
+</blockquote>
+<hr>
+<h3 id="步骤2：安装-Packet-Tracer"><a href="#步骤2：安装-Packet-Tracer" class="headerlink" title="步骤2：安装 Packet Tracer"></a>步骤2：安装 Packet Tracer</h3><p>双击安装包，右键选择“以管理员身份运行”避免权限问题。在安装向导中，接受许可协议，安装路径保持默认（<code>C:\Program Files\Cisco Packet Tracer</code>），避免中文路径。点击 “Install” 开始安装，等待进度条完成（约3~5分钟），最后点击 “Finish” 退出向导。</p>
+<hr>
+<h3 id="步骤3：首次运行与界面熟悉"><a href="#步骤3：首次运行与界面熟悉" class="headerlink" title="步骤3：首次运行与界面熟悉"></a>步骤3：首次运行与界面熟悉</h3><p>双击桌面快捷方式启动软件，首次启动会弹出登录窗口，输入 NetAcad 账号密码登录。进入主界面后，观察四个核心区域：</p>
+<ul>
+<li><strong>菜单栏</strong>（顶部）：File、Edit、Options、View、Tools 等；</li>
+<li><strong>设备工具栏</strong>（左下角）：包含路由器、交换机、PC、线缆等；</li>
+<li><strong>工作区</strong>（中央）：用于搭建拓扑；</li>
+<li><strong>仿真控制台</strong>（右下角）：控制模拟运行与调试。</li>
+</ul>
+<blockquote>
+<p><em>（截图2：Packet Tracer 主界面全貌，标注四个区域）</em><br><strong><img src="/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%80/%E5%9B%BE4%EF%BC%9A%E4%B8%BB%E7%95%8C%E9%9D%A2%E5%8C%BA%E5%9F%9F%E5%88%92%E5%88%86.png"></strong></p>
+</blockquote>
+<hr>
+<h3 id="步骤4：搭建局域网"><a href="#步骤4：搭建局域网" class="headerlink" title="步骤4：搭建局域网"></a>步骤4：搭建局域网</h3><h4 id="4-1-添加设备"><a href="#4-1-添加设备" class="headerlink" title="4.1 添加设备"></a>4.1 添加设备</h4><p>在左侧设备工具栏中，点击 “Network Devices” 下的 “Switches”，将 <strong>2960</strong> 交换机拖入工作区。再点击 “End Devices”，将两台 <strong>PC-PT</strong> 拖入工作区。</p>
+<blockquote>
+<p><em>（截图3：设备添加后的工作区）</em><br><strong><img src="/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%80/%E5%9B%BE5%EF%BC%9A%E6%B7%BB%E5%8A%A0%E4%BA%A4%E6%8D%A2%E6%9C%BA%E4%B8%8E%E4%B8%A4%E5%8F%B0PC.png"></strong></p>
+</blockquote>
+<h4 id="4-2-连接设备"><a href="#4-2-连接设备" class="headerlink" title="4.2 连接设备"></a>4.2 连接设备</h4><p>点击设备工具栏中的 “Connections”（闪电&#x2F;线缆图标），选择 <strong>Copper Straight-Through</strong>（直通线）。依次点击 PC0 的 FastEthernet0 端口 → 交换机的 FastEthernet0&#x2F;1 端口；再用同样方式将 PC1 连接到交换机的 FastEthernet0&#x2F;2 端口。</p>
+<blockquote>
+<p><em>（截图4：连线操作示意）</em><br><strong><img src="/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%80/%E5%9B%BE6%EF%BC%9A%E4%BD%BF%E7%94%A8%E7%9B%B4%E9%80%9A%E7%BA%BF%E8%BF%9E%E6%8E%A5PC%E4%B8%8E%E4%BA%A4%E6%8D%A2%E6%9C%BA.png"></strong></p>
+</blockquote>
+<h4 id="4-3-配置IP地址"><a href="#4-3-配置IP地址" class="headerlink" title="4.3 配置IP地址"></a>4.3 配置IP地址</h4><p>双击 PC0，选择 “Desktop” 选项卡，点击 “IP Configuration”，在 Address 栏输入 <code>192.168.1.1</code>回车，子网掩码自动填充为 <code>255.255.255.0</code>。关闭窗口。双击 PC1，同样进入 Desktop → IP Configuration，将 IP 设置为 <code>192.168.1.2</code>，掩码相同。</p>
+<blockquote>
+<p><em>（截图5：PC0的IP配置界面）</em><br><strong><img src="/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%80/%E5%9B%BE7%EF%BC%9APC1%E9%85%8D%E7%BD%AE%E9%9D%99%E6%80%81IP.png"></strong></p>
+</blockquote>
+<blockquote>
+<p><em>（截图6：PC1的IP配置界面）</em><br><strong><img src="/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%80/%E5%9B%BE8%EF%BC%9APC2%E9%85%8D%E7%BD%AE%E9%9D%99%E6%80%81IP.png"></strong></p>
+</blockquote>
+<hr>
+<h4 id="4-4-测试网络连通性"><a href="#4-4-测试网络连通性" class="headerlink" title="4.4 测试网络连通性"></a>4.4 测试网络连通性</h4><p>双击 PC0，进入 Desktop → Command Prompt，输入命令 <code>ping 192.168.1.2</code>。若返回类似 “Reply from 192.168.1.2: bytes&#x3D;32 time&lt;1ms TTL&#x3D;128” 的信息，则通信成功。</p>
+<blockquote>
+<p><em>（截图7：ping通结果）</em><br><strong><img src="/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%80/%E5%9B%BE9%EF%BC%9APC0pingPC1%E6%88%90%E5%8A%9F%E8%BF%94%E5%9B%9E.png"></strong></p>
+</blockquote>
+<hr>
+<h3 id="步骤5：观察数据包流动"><a href="#步骤5：观察数据包流动" class="headerlink" title="步骤5：观察数据包流动"></a>步骤5：观察数据包流动</h3><p>在右下角仿真控制台中点击 “Simulation” 模式，然后点击 “Add Simple PDU” 按钮（信封图标），先点击 PC1（源），再点击 PC2（目标）。点击 “Auto Capture &#x2F; Play” 按钮，观察数据包从 PC1 发出，经交换机转发至 PC2 的动画过程。点击某个数据包可查看其在不同层级（应用层、网络层、数据链路层）的封装细节。</p>
+<blockquote>
+<p><em>（截图8：仿真模式下数据包流动动画）</em><br><strong><img src="/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%80/%E5%9B%BE10%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%8C%85%E4%BC%A0%E8%BE%93%E8%BF%87%E7%A8%8B%E7%A4%BA%E6%84%8F.png"></strong></p>
+</blockquote>
+<blockquote>
+<p><em>（截图9：数据包封装详情窗口）</em><br><strong><img src="/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%80/%E5%9B%BE11%EF%BC%9A%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE%E5%8C%85%E5%9C%A8%E4%BA%A4%E6%8D%A2%E6%9C%BA%E5%A4%84%E7%9A%84%E5%A4%84%E7%90%86%E7%BB%86%E8%8A%82.png"></strong></p>
+</blockquote>
+<h2 id="4-实验结果"><a href="#4-实验结果" class="headerlink" title="4. 实验结果"></a>4. 实验结果</h2><p>本次实验成功搭建了一个小型局域网，并验证了两台 PC 之间的连通性。具体测试结果如下：</p>
+<table>
+<thead>
+<tr>
+<th>测试项</th>
+<th>源设备</th>
+<th>目标设备</th>
+<th>结果</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ping 连通性</td>
+<td>PC0 (192.168.1.1)</td>
+<td>PC1 (192.168.1.2)</td>
+<td>成功（Reply）</td>
+<td>延时 &lt;1ms</td>
+</tr>
+<tr>
+<td>仿真数据包捕获</td>
+<td>PC1</td>
+<td>PC2</td>
+<td>成功到达</td>
+<td>经交换机转发，无丢包</td>
+</tr>
+</tbody></table>
+<p><strong>成果展示</strong>：  </p>
+<ul>
+<li>拓扑结构：交换机 2960 为中心，PC0 和 PC1 分别连接至交换机端口 0&#x2F;1 和 0&#x2F;2，所有设备链路状态为绿色（正常）。  </li>
+<li>IP 配置均在同一子网，ARP 解析正常，ICMP 回显成功。  </li>
+<li>仿真模式下，数据包各层封装（以太网帧头、IP 头、ICMP 载荷）均可展开查看，验证了 OSI 模型分层思想。</li>
+</ul>
+<h2 id="5-知识总结"><a href="#5-知识总结" class="headerlink" title="5. 知识总结"></a>5. 知识总结</h2><h3 id="5-1-三种网络软件架构对比"><a href="#5-1-三种网络软件架构对比" class="headerlink" title="5.1 三种网络软件架构对比"></a>5.1 三种网络软件架构对比</h3><table>
+<thead>
+<tr>
+<th>架构类型</th>
+<th>全称</th>
+<th>核心特征</th>
+<th>优点</th>
+<th>缺点</th>
+<th>典型例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>C&#x2F;S</strong></td>
+<td>Client&#x2F;Server</td>
+<td>需安装专用客户端，服务端集中管理数据</td>
+<td>安全性高、功能丰富、交互性强</td>
+<td>部署维护成本高，客户端需更新</td>
+<td>微信、网络游戏、Outlook</td>
+</tr>
+<tr>
+<td><strong>B&#x2F;S</strong></td>
+<td>Browser&#x2F;Server</td>
+<td>仅需浏览器，核心逻辑在服务器端</td>
+<td>跨平台、免安装、易于升级</td>
+<td>依赖网络，用户体验受限于浏览器</td>
+<td>淘宝、知乎、在线办公</td>
+</tr>
+<tr>
+<td><strong>P2P</strong></td>
+<td>Peer-to-Peer</td>
+<td>节点对等，既是客户端又是服务器</td>
+<td>去中心化、扩展性好、资源利用率高</td>
+<td>管理困难，安全性和可控性差</td>
+<td>BT下载、部分即时通讯</td>
+</tr>
+</tbody></table>
+<h3 id="5-2-Packet-Tracer-中的网络通信层次（TCP-IP-简化模型）"><a href="#5-2-Packet-Tracer-中的网络通信层次（TCP-IP-简化模型）" class="headerlink" title="5.2 Packet Tracer 中的网络通信层次（TCP&#x2F;IP 简化模型）"></a>5.2 Packet Tracer 中的网络通信层次（TCP&#x2F;IP 简化模型）</h3><table>
+<thead>
+<tr>
+<th>层次</th>
+<th>作用</th>
+<th>本实验涉及内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>应用层</td>
+<td>用户交互，生成数据</td>
+<td>ICMP（ping 命令）</td>
+</tr>
+<tr>
+<td>传输层</td>
+<td>端到端通信（TCP&#x2F;UDP）</td>
+<td>本实验未涉及</td>
+</tr>
+<tr>
+<td>网络层</td>
+<td>寻址和路由</td>
+<td>IP 地址（192.168.1.x），ARP 解析</td>
+</tr>
+<tr>
+<td>数据链路层</td>
+<td>帧封装，MAC 寻址</td>
+<td>交换机转发，以太网帧头</td>
+</tr>
+<tr>
+<td>物理层</td>
+<td>比特流传输</td>
+<td>直通线缆，端口状态</td>
+</tr>
+</tbody></table>
+<h3 id="5-3-常用网络命令"><a href="#5-3-常用网络命令" class="headerlink" title="5.3 常用网络命令"></a>5.3 常用网络命令</h3><ul>
+<li><code>ping &lt;目标IP&gt;</code>：测试连通性和往返时延。</li>
+<li><code>ipconfig</code>（Windows）&#x2F; <code>ifconfig</code>（Linux）：查看本机 IP 配置（在 PT 中通过 IP Configuration 图形界面完成）。</li>
+</ul>
+<h2 id="6-出现问题及解决方案"><a href="#6-出现问题及解决方案" class="headerlink" title="6. 出现问题及解决方案"></a>6. 出现问题及解决方案</h2><table>
+<thead>
+<tr>
+<th>问题现象</th>
+<th>可能原因</th>
+<th>解决方法</th>
+<th>是否解决</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>安装时提示“权限不足”</td>
+<td>未以管理员身份运行</td>
+<td>右键安装包选择“以管理员身份运行”</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>首次登录 Packet Tracer 失败</td>
+<td>网络连接问题或账号未验证</td>
+<td>检查互联网连接，确认邮箱已验证</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>ping 返回 “Request timed out”</td>
+<td>PC1 和 PC2 不在同一网段</td>
+<td>检查 IP：PC1&#x3D;192.168.1.1，PC2&#x3D;192.168.1.2，掩码均为255.255.255.0</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>ping 超时，且交换机端口指示灯为橙色</td>
+<td>线缆类型错误（用了交叉线或线缆未插稳）</td>
+<td>更换为 Copper Straight-Through，重新插拔</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>仿真模式下数据包未显示</td>
+<td>未进入 Simulation 模式或未添加 PDU</td>
+<td>点击 Simulation 标签，点击 Add Simple PDU 重新发送</td>
+<td>✅</td>
+</tr>
+</tbody></table>
+<h2 id="7-心得体会"><a href="#7-心得体会" class="headerlink" title="7. 心得体会"></a>7. 心得体会</h2><p><strong>技术层面</strong>：<br>通过本次实验，学习了 Cisco Packet Tracer 的基本安装和使用方法，熟悉了网络设备的添加、连接和 IP 配置流程。通过实际的 ping 测试和仿真数据包捕获，直观地理解了数据在局域网中的传输路径以及逐层封装的过程，将抽象的 OSI 模型具象化。同时，对比 C&#x2F;S、B&#x2F;S、P2P 架构后，了解到 Packet Tracer 本身属于 C&#x2F;S 架构的桌面软件，但其模拟的网络环境可以承载多种架构的应用，这体现了“架构是逻辑设计，物理实现可多样”的理解。</p>
+<p><strong>思维层面</strong>：<br>Cisco NetAcad 平台提供免费学习资源，体现了企业推动网络技术普及的责任。Packet Tracer 作为教学工具，降低了真实设备实验的门槛，体现开源&#x2F;免费软件在教育公平中的重要作用。此外，在排查 ping 不通的过程中，严谨的工程思维——每一步配置都要符合规范，问题定位需按层次（物理连接→数据链路→网络层）逐步排除，这种系统性排查方法将对今后的学习和工作产生积极影响。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/" rel="tag"># 实验报告</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%BA%8C/" rel="next" title="实验二报告：Hexo的配置与部署">
+      实验二报告：Hexo的配置与部署 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%AE%9E%E9%AA%8C%E7%9B%AE%E7%9A%84"><span class="nav-number">1.</span> <span class="nav-text">1. 实验目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83"><span class="nav-number">2.</span> <span class="nav-text">2. 实验环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%AE%9E%E9%AA%8C%E8%BF%87%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">3. 实验过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A41%EF%BC%9A%E6%B3%A8%E5%86%8C-Cisco-NetAcad-%E8%B4%A6%E5%8F%B7%E5%B9%B6%E4%B8%8B%E8%BD%BD-Packet-Tracer"><span class="nav-number">3.1.</span> <span class="nav-text">步骤1：注册 Cisco NetAcad 账号并下载 Packet Tracer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A42%EF%BC%9A%E5%AE%89%E8%A3%85-Packet-Tracer"><span class="nav-number">3.2.</span> <span class="nav-text">步骤2：安装 Packet Tracer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A43%EF%BC%9A%E9%A6%96%E6%AC%A1%E8%BF%90%E8%A1%8C%E4%B8%8E%E7%95%8C%E9%9D%A2%E7%86%9F%E6%82%89"><span class="nav-number">3.3.</span> <span class="nav-text">步骤3：首次运行与界面熟悉</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A44%EF%BC%9A%E6%90%AD%E5%BB%BA%E5%B1%80%E5%9F%9F%E7%BD%91"><span class="nav-number">3.4.</span> <span class="nav-text">步骤4：搭建局域网</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-%E6%B7%BB%E5%8A%A0%E8%AE%BE%E5%A4%87"><span class="nav-number">3.4.1.</span> <span class="nav-text">4.1 添加设备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-%E8%BF%9E%E6%8E%A5%E8%AE%BE%E5%A4%87"><span class="nav-number">3.4.2.</span> <span class="nav-text">4.2 连接设备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-%E9%85%8D%E7%BD%AEIP%E5%9C%B0%E5%9D%80"><span class="nav-number">3.4.3.</span> <span class="nav-text">4.3 配置IP地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-%E6%B5%8B%E8%AF%95%E7%BD%91%E7%BB%9C%E8%BF%9E%E9%80%9A%E6%80%A7"><span class="nav-number">3.4.4.</span> <span class="nav-text">4.4 测试网络连通性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A45%EF%BC%9A%E8%A7%82%E5%AF%9F%E6%95%B0%E6%8D%AE%E5%8C%85%E6%B5%81%E5%8A%A8"><span class="nav-number">3.5.</span> <span class="nav-text">步骤5：观察数据包流动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="nav-number">4.</span> <span class="nav-text">4. 实验结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">5. 知识总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-%E4%B8%89%E7%A7%8D%E7%BD%91%E7%BB%9C%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%AF%B9%E6%AF%94"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 三种网络软件架构对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-Packet-Tracer-%E4%B8%AD%E7%9A%84%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E5%B1%82%E6%AC%A1%EF%BC%88TCP-IP-%E7%AE%80%E5%8C%96%E6%A8%A1%E5%9E%8B%EF%BC%89"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 Packet Tracer 中的网络通信层次（TCP&#x2F;IP 简化模型）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-%E5%B8%B8%E7%94%A8%E7%BD%91%E7%BB%9C%E5%91%BD%E4%BB%A4"><span class="nav-number">5.3.</span> <span class="nav-text">5.3 常用网络命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E5%87%BA%E7%8E%B0%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">6.</span> <span class="nav-text">6. 出现问题及解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A"><span class="nav-number">7.</span> <span class="nav-text">7. 心得体会</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

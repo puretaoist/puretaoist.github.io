@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一、实验目的本次实验旨在安装 Visual Studio Code 代码编辑器，安装和配置 Markdown 相关插件，掌握 VS Code 的基本界面布局和插件扩展机制，并使用 Markdown 语法完成文档的编辑和实时预览，为后续软件开发工作奠定高效的编辑基础。 二、实验环境 操作系统：Windows 11 专业版 23H2 Visual Studio Code：1.85.0 VS Code">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实验三实验报告">
+<meta property="og:url" content="http://example.com/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%89/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、实验目的本次实验旨在安装 Visual Studio Code 代码编辑器，安装和配置 Markdown 相关插件，掌握 VS Code 的基本界面布局和插件扩展机制，并使用 Markdown 语法完成文档的编辑和实时预览，为后续软件开发工作奠定高效的编辑基础。 二、实验环境 操作系统：Windows 11 专业版 23H2 Visual Studio Code：1.85.0 VS Code">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%89/image1.jpeg">
+<meta property="og:image" content="http://example.com/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%89/image2.png">
+<meta property="og:image" content="http://example.com/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%89/image3.png">
+<meta property="og:image" content="http://example.com/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%89/image4.png">
+<meta property="og:image" content="http://example.com/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%89/image5.png">
+<meta property="article:published_time" content="2026-07-09T15:00:00.000Z">
+<meta property="article:modified_time" content="2026-07-11T11:57:01.501Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="实验报告">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%89/image1.jpeg">
+
+<link rel="canonical" href="http://example.com/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%89/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>实验三实验报告 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          实验三实验报告
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-07-09 15:00:00" itemprop="dateCreated datePublished" datetime="2026-07-09T15:00:00+00:00">2026-07-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-07-11 11:57:01" itemprop="dateModified" datetime="2026-07-11T11:57:01+00:00">2026-07-11</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一、实验目的"><a href="#一、实验目的" class="headerlink" title="一、实验目的"></a>一、实验目的</h2><p>本次实验旨在安装 Visual Studio Code 代码编辑器，安装和配置 Markdown 相关插件，掌握 VS Code 的基本界面布局和插件扩展机制，并使用 Markdown 语法完成文档的编辑和实时预览，为后续软件开发工作奠定高效的编辑基础。</p>
+<h2 id="二、实验环境"><a href="#二、实验环境" class="headerlink" title="二、实验环境"></a>二、实验环境</h2><ul>
+<li>操作系统：Windows 11 专业版 23H2</li>
+<li>Visual Studio Code：1.85.0</li>
+<li>VS Code 插件：<ul>
+<li>Markdown All in One（v3.6.2）</li>
+<li>Markdown Preview Enhanced（v0.8.14）</li>
+<li>Paste Image（v1.0.4）</li>
+</ul>
+</li>
+<li>网络：需互联网连接以下载插件</li>
+</ul>
+<h2 id="三、实验过程"><a href="#三、实验过程" class="headerlink" title="三、实验过程"></a>三、实验过程</h2><h3 id="步骤一：安装-Visual-Studio-Code"><a href="#步骤一：安装-Visual-Studio-Code" class="headerlink" title="步骤一：安装 Visual Studio Code"></a>步骤一：安装 Visual Studio Code</h3><p>访问 VS Code 官网，双击安装包启动安装向导，同意许可协议后进入安装路径选择，在”选择附加任务”页面，勾选以下选项：</p>
+<ol>
+<li>创建桌面快捷方式</li>
+<li>将”通过 Code 打开”操作添加到 Windows 资源管理器文件上下文菜单</li>
+<li>将”通过 Code 打开”操作添加到 Windows 资源管理器目录上下文菜单</li>
+<li>将 Code 注册为受支持的文件类型的编辑器</li>
+<li>添加到 PATH</li>
+</ol>
+<p><img src="/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%89/image1.jpeg" alt="安装选项"></p>
+<p>之后等待安装完成。</p>
+<h3 id="步骤二：首次运行与界面熟悉"><a href="#步骤二：首次运行与界面熟悉" class="headerlink" title="步骤二：首次运行与界面熟悉"></a>步骤二：首次运行与界面熟悉</h3><p>双击桌面上的 VS Code 快捷方式图标启动软件，熟悉主界面布局：</p>
+<p><img src="/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%89/image2.png" alt="VS Code 界面"></p>
+<table>
+<thead>
+<tr>
+<th>区域</th>
+<th>位置</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>活动栏</td>
+<td>左侧最窄竖条</td>
+<td>包含资源管理器、搜索、源代码管理、运行和调试、扩展等图标</td>
+</tr>
+<tr>
+<td>侧边栏</td>
+<td>活动栏右侧</td>
+<td>显示当前活动栏工具的具体内容</td>
+</tr>
+<tr>
+<td>编辑器区域</td>
+<td>中央</td>
+<td>用于编辑文件的主要区域</td>
+</tr>
+<tr>
+<td>面板</td>
+<td>底部</td>
+<td>显示终端、输出、问题等</td>
+</tr>
+<tr>
+<td>状态栏</td>
+<td>底部最下方</td>
+<td>显示当前文件信息、Git 分支、编码格式等</td>
+</tr>
+</tbody></table>
+<h3 id="步骤三：安装-Markdown-相关插件"><a href="#步骤三：安装-Markdown-相关插件" class="headerlink" title="步骤三：安装 Markdown 相关插件"></a>步骤三：安装 Markdown 相关插件</h3><p>打开扩展面板：点击左侧活动栏中的扩展图标（或使用快捷键 Ctrl + Shift + X）</p>
+<p>在扩展面板搜索框中依次搜索以下插件并点击”安装”：</p>
+<table>
+<thead>
+<tr>
+<th>插件名称</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Markdown All in One</td>
+<td>目录生成、快捷键支持、列表自动延续</td>
+</tr>
+<tr>
+<td>Markdown Preview Enhanced</td>
+<td>数学公式（LaTeX）、流程图（Mermaid）、导出为 PDF&#x2F;HTML</td>
+</tr>
+<tr>
+<td>Paste Image</td>
+<td>直接粘贴剪贴板中的图片到 Markdown 文件</td>
+</tr>
+<tr>
+<td>markdownlint</td>
+<td>检查 Markdown 语法错误和格式规范</td>
+</tr>
+</tbody></table>
+<h3 id="步骤四：配置编辑器优化写作体验"><a href="#步骤四：配置编辑器优化写作体验" class="headerlink" title="步骤四：配置编辑器优化写作体验"></a>步骤四：配置编辑器优化写作体验</h3><p>按 Ctrl + , 打开设置，进行以下配置：</p>
+<table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>搜索关键词</th>
+<th>设置值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>自动保存</td>
+<td>files.autosave</td>
+<td>afterDelay</td>
+</tr>
+<tr>
+<td>单词折行</td>
+<td>editor.wordwrap</td>
+<td>on</td>
+</tr>
+<tr>
+<td>图片粘贴路径</td>
+<td>Paste Image: Path Type</td>
+<td>relative</td>
+</tr>
+</tbody></table>
+<h3 id="步骤五：创建并编辑第一个-Markdown-文件"><a href="#步骤五：创建并编辑第一个-Markdown-文件" class="headerlink" title="步骤五：创建并编辑第一个 Markdown 文件"></a>步骤五：创建并编辑第一个 Markdown 文件</h3><p>新建文件：按 Ctrl + N，然后按 Ctrl + S 保存，文件名为 test.md</p>
+<p><img src="/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%89/image3.png" alt="新建文件"></p>
+<p>输入以下内容：</p>
+<p><img src="/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%89/image4.png" alt="编辑内容"></p>
+<p>按 Ctrl + Shift + V 打开实时预览窗口，观察 Markdown 渲染后的效果。</p>
+<p><img src="/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%B8%89/image5.png" alt="预览效果"></p>
+<h2 id="四、实验结果"><a href="#四、实验结果" class="headerlink" title="四、实验结果"></a>四、实验结果</h2><table>
+<thead>
+<tr>
+<th>验证项</th>
+<th>预期结果</th>
+<th>实际结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>VS Code 安装</td>
+<td>桌面有 VS Code 快捷方式，软件可正常启动</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>“添加到 PATH” 勾选</td>
+<td>命令行中可执行 <code>code</code> 命令</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>Markdown All in One 插件安装</td>
+<td>插件列表中显示已安装</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>Markdown Preview Enhanced 插件安装</td>
+<td>插件列表中显示已安装</td>
+<td>成功</td>
+</tr>
+<tr>
+<td><code>test.md</code> 文件创建与编辑</td>
+<td>文件可正常保存和预览</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>实时预览</td>
+<td><code>Ctrl + Shift + V</code> 显示渲染效果</td>
+<td>成功</td>
+</tr>
+</tbody></table>
+<h2 id="五、知识总结"><a href="#五、知识总结" class="headerlink" title="五、知识总结"></a>五、知识总结</h2><h3 id="1、代码编辑器-vs-集成开发环境（IDE）"><a href="#1、代码编辑器-vs-集成开发环境（IDE）" class="headerlink" title="1、代码编辑器 vs 集成开发环境（IDE）"></a>1、代码编辑器 vs 集成开发环境（IDE）</h3><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>特点</th>
+<th>典型代表</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>代码编辑器</td>
+<td>轻量级、启动快、以编辑为核心、通过插件扩展能力</td>
+<td>VS Code、Sublime Text</td>
+</tr>
+<tr>
+<td>集成开发环境</td>
+<td>功能全面、集成了编译&#x2F;调试&#x2F;构建&#x2F;版本控制等全套工具链</td>
+<td>IntelliJ IDEA、PyCharm</td>
+</tr>
+</tbody></table>
+<h3 id="2、VS-Code-插件扩展机制"><a href="#2、VS-Code-插件扩展机制" class="headerlink" title="2、VS Code 插件扩展机制"></a>2、VS Code 插件扩展机制</h3><p>插件是 VS Code 最核心的扩展机制。通过安装不同插件，可以为编辑器增加语法高亮、代码补全、格式化、预览、调试等新功能。</p>
+<h3 id="3、Markdown-核心语法"><a href="#3、Markdown-核心语法" class="headerlink" title="3、Markdown 核心语法"></a>3、Markdown 核心语法</h3><p>Markdown 是一种轻量级标记语言，通过简单的纯文本语法实现结构化文档编写，并支持转换为 HTML、PDF 等格式。</p>
+<p><strong>核心特点：</strong></p>
+<ul>
+<li><strong>简洁性</strong>：仅需少量符号（如 <code>#</code>、<code>*</code>、<code>-</code>）即可完成排版</li>
+<li><strong>可读性</strong>：未渲染的纯文本仍然清晰易读</li>
+<li><strong>兼容性</strong>：支持 GitHub、各大博客平台、笔记工具等场景</li>
+</ul>
+<h2 id="六、出现问题"><a href="#六、出现问题" class="headerlink" title="六、出现问题"></a>六、出现问题</h2><table>
+<thead>
+<tr>
+<th>问题现象</th>
+<th>可能原因</th>
+<th>解决方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>安装后无法在命令行使用 <code>code</code> 命令</td>
+<td>安装时未勾选”添加到 PATH”</td>
+<td>重新运行安装程序，勾选”添加到 PATH”；或手动将 VS Code 安装目录添加到系统环境变量</td>
+</tr>
+<tr>
+<td>扩展面板搜索不到插件</td>
+<td>网络问题或搜索关键词不准确</td>
+<td>检查网络连接；尝试使用准确的插件全名搜索</td>
+</tr>
+<tr>
+<td>预览窗口不显示或显示异常</td>
+<td>插件未正确安装或未启用</td>
+<td>检查扩展面板中插件是否已启用；重启 VS Code</td>
+</tr>
+</tbody></table>
+<h2 id="七、心得体会"><a href="#七、心得体会" class="headerlink" title="七、心得体会"></a>七、心得体会</h2><p>通过本次实验，我深入体验了 VS Code 作为现代代码编辑器的强大之处。其”编辑器 + 插件”的架构设计通过安装不同的插件，一个轻量级的编辑器可以扩展出接近 IDE 的功能，这种灵活性极大提升了开发效率。在 Markdown 写作方面，VS Code 配合 Markdown All in One 和 Markdown Preview Enhanced 插件，提供了良好的写作体验：实时预览、语法高亮、快捷键支持等功能让文档编写变得流畅而愉悦。此外，通过实验三的实践，我认识到 Markdown 作为一种轻量级标记语言，其简洁性和可读性使其成为技术文档写作的理想选择。VS Code 与 Markdown 的结合，不仅降低了技术写作的门槛，也提高了效率。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/" rel="tag"># 实验报告</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/07/09/%E5%AE%9E%E9%AA%8C%E4%BA%8C/" rel="prev" title="实验二报告：Hexo的配置与部署">
+      <i class="fa fa-chevron-left"></i> 实验二报告：Hexo的配置与部署
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2026/07/10/%E5%AE%9E%E9%AA%8C%E5%9B%9B/" rel="next" title="实验四实验报告">
+      实验四实验报告 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AE%9E%E9%AA%8C%E7%9B%AE%E7%9A%84"><span class="nav-number">1.</span> <span class="nav-text">一、实验目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83"><span class="nav-number">2.</span> <span class="nav-text">二、实验环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%AE%9E%E9%AA%8C%E8%BF%87%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">三、实验过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4%E4%B8%80%EF%BC%9A%E5%AE%89%E8%A3%85-Visual-Studio-Code"><span class="nav-number">3.1.</span> <span class="nav-text">步骤一：安装 Visual Studio Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4%E4%BA%8C%EF%BC%9A%E9%A6%96%E6%AC%A1%E8%BF%90%E8%A1%8C%E4%B8%8E%E7%95%8C%E9%9D%A2%E7%86%9F%E6%82%89"><span class="nav-number">3.2.</span> <span class="nav-text">步骤二：首次运行与界面熟悉</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4%E4%B8%89%EF%BC%9A%E5%AE%89%E8%A3%85-Markdown-%E7%9B%B8%E5%85%B3%E6%8F%92%E4%BB%B6"><span class="nav-number">3.3.</span> <span class="nav-text">步骤三：安装 Markdown 相关插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4%E5%9B%9B%EF%BC%9A%E9%85%8D%E7%BD%AE%E7%BC%96%E8%BE%91%E5%99%A8%E4%BC%98%E5%8C%96%E5%86%99%E4%BD%9C%E4%BD%93%E9%AA%8C"><span class="nav-number">3.4.</span> <span class="nav-text">步骤四：配置编辑器优化写作体验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4%E4%BA%94%EF%BC%9A%E5%88%9B%E5%BB%BA%E5%B9%B6%E7%BC%96%E8%BE%91%E7%AC%AC%E4%B8%80%E4%B8%AA-Markdown-%E6%96%87%E4%BB%B6"><span class="nav-number">3.5.</span> <span class="nav-text">步骤五：创建并编辑第一个 Markdown 文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="nav-number">4.</span> <span class="nav-text">四、实验结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">五、知识总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E4%BB%A3%E7%A0%81%E7%BC%96%E8%BE%91%E5%99%A8-vs-%E9%9B%86%E6%88%90%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%EF%BC%88IDE%EF%BC%89"><span class="nav-number">5.1.</span> <span class="nav-text">1、代码编辑器 vs 集成开发环境（IDE）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81VS-Code-%E6%8F%92%E4%BB%B6%E6%89%A9%E5%B1%95%E6%9C%BA%E5%88%B6"><span class="nav-number">5.2.</span> <span class="nav-text">2、VS Code 插件扩展机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81Markdown-%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95"><span class="nav-number">5.3.</span> <span class="nav-text">3、Markdown 核心语法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%87%BA%E7%8E%B0%E9%97%AE%E9%A2%98"><span class="nav-number">6.</span> <span class="nav-text">六、出现问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A"><span class="nav-number">7.</span> <span class="nav-text">七、心得体会</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
